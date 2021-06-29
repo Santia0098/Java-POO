@@ -1,11 +1,36 @@
 package model;
 
+import javax.print.Doc;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Patient extends User {
 
     private String birthday;
     private double weight;
     private double height;
     private String blood;
+
+    private ArrayList<AppoinmentDoctor> appoinmentDoctors = new ArrayList<>();
+    private ArrayList<AppoinmentNurse> appoinmentNurses = new ArrayList<>();
+
+    public ArrayList<AppoinmentDoctor> getAppoinmentDoctors() {
+        return appoinmentDoctors;
+    }
+
+    public void addAppoinmentDoctors(Doctor doctor, Date date, String time) {
+        AppoinmentDoctor appoinmentDoctor = new AppoinmentDoctor(this, doctor);
+        appoinmentDoctor.schedule(date, time);
+        appoinmentDoctors.add(appoinmentDoctor);
+    }
+
+    public ArrayList<AppoinmentNurse> getAppoinmentNurses() {
+        return appoinmentNurses;
+    }
+
+    public void setAppoinmentNurses(ArrayList<AppoinmentNurse> appoinmentNurses) {
+        this.appoinmentNurses = appoinmentNurses;
+    }
 
     public Patient(String name, String email){
         super(name,email);
@@ -48,5 +73,11 @@ public class Patient extends User {
         return super.toString() + "\n Age: " + birthday + "\n Weight: " +
                 getWeight() + "\n Height: " +
                 getHeight() + "\n Blood: " + getBlood();
+    }
+
+    @Override
+    public void showDataUser() {
+        System.out.println("Patient");
+        System.out.println("Full History");
     }
 }
